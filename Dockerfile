@@ -6,7 +6,7 @@ RUN apt-get update && apt-get install -y \
     openssh-server \
     python3 python3-dev python3-venv git curl cron socat \
     build-essential libcrypt-dev libc-dev \
-    vim \
+    nano \
     && apt-get clean
 
 WORKDIR /opt/chatmail

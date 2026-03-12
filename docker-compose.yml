@@ -10,21 +10,30 @@ services:
     restart: unless-stopped
     ports:
       - "25:25"
-      - "8080:80"
+      - "80:80"
       - "143:143"
-      - "9443:443"
+      - "443:443"
       - "465:465"
       - "587:587"
       - "993:993"
       - "3340:3340"
       - "3478:3478"
     volumes:
-      - ./acme:/var/lib/acme:rw  # save certs to avoid request them again in case something gooes wrong and you need to start from the beginning
-      - ./dkimkeys:/etc/dkimkeys:rw  # dkimkeys for backups and migrating to a new machine
-      - ./vmail:/home/vmail:rw  # accounts for backups and migrating to a new machine
-      - ./postfix:/var/spool/postfix:rw  # for backups and migrating to a new machine
       - /sys/fs/cgroup:/sys/fs/cgroup:rw  # for systemd to work
-      # - ./chatmail.ini:/opt/chatmail/chatmail.ini
+      - chatmail_var:/var
+      - chatmail_home:/home
+      - chatmail_opt:/opt
+      - chatmail_etc:/etc
+      - chatmail_root:/root
+      - chatmail_usr:/usr
     tmpfs:  # for systemd to work
       - /run
       - /run/lock
+
+volumes:
+  chatmail_var:
+  chatmail_home:
+  chatmail_opt:
+  chatmail_etc:
+  chatmail_root:
+  chatmail_usr:
